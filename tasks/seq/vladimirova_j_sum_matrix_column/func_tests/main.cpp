@@ -13,7 +13,7 @@
 #include "seq/vladimirova_j_sum_matrix_column/include/ops_seq.hpp"
 
 namespace {
-static std::vector<int> CreateRandomVector(size_t size, size_t spread_of_val) {
+std::vector<int> CreateRandomVector(size_t size, size_t spread_of_val) {
   // Init value for input and output
   std::random_device dev;
   std::mt19937 random(dev());
