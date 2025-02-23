@@ -32,7 +32,7 @@ bool vladimirova_j_sum_matrix_column::TestTaskSequential::RunImpl() {
 
   for (size_t i = 0; i < m_col_; i++) {
     for (size_t j = 0; j < m_row_; j++) {
-      output_[i] += input_[j * m_col_ + i];
+      output_[i] += input_[(j * m_col_) + i];
     }
   }
 

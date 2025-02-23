@@ -12,7 +12,7 @@
 // #include "core/util/include/util.hpp"
 #include "seq/vladimirova_j_sum_matrix_column/include/ops_seq.hpp"
 
-namespace vladimirova_j_sum_matrix_column {
+namespace {
 static std::vector<int> CreateRandomVector(size_t size, size_t spread_of_val) {
   // Init value for input and output
   std::random_device dev;
@@ -23,13 +23,13 @@ static std::vector<int> CreateRandomVector(size_t size, size_t spread_of_val) {
   }
   return v;
 }
-}  // namespace vladimirova_j_sum_matrix_column
+}  // namespace
 
 TEST(vladimirova_j_sum_matrix_column, test_sum_column_zero_1) {
   constexpr size_t kCountR = 0;
   constexpr size_t kCountC = 500;
   // Create data
-  std::vector<int> in = vladimirova_j_sum_matrix_column::CreateRandomVector(kCountC * kCountR, 500);
+  std::vector<int> in = CreateRandomVector(kCountC * kCountR, 500);
   std::vector<int> out(kCountC, 0);
   // for (size_t i = 0; i < kCount * kCount; i++) std::cout << in[i] << " ";
   // std::cout << std::endl;
@@ -50,7 +50,7 @@ TEST(vladimirova_j_sum_matrix_column, test_sum_column_zero_2) {
   constexpr size_t kCountR = 500;
   constexpr size_t kCountC = 0;
   // Create data
-  std::vector<int> in = vladimirova_j_sum_matrix_column::CreateRandomVector(kCountC * kCountR, 500);
+  std::vector<int> in = CreateRandomVector(kCountC * kCountR, 500);
   std::vector<int> out(kCountC, 0);
   // for (size_t i = 0; i < kCount * kCount; i++) std::cout << in[i] << " ";
   // std::cout << std::endl;
@@ -147,7 +147,7 @@ TEST(vladimirova_j_sum_matrix_column, test_sum_column_1x500) {
   constexpr size_t kCountR = 1;
   constexpr size_t kCountC = 500;
   // Create data
-  std::vector<int> in = vladimirova_j_sum_matrix_column::CreateRandomVector(kCountC * kCountR, 500);
+  std::vector<int> in = CreateRandomVector(kCountC * kCountR, 500);
   std::vector<int> out(kCountC, 0);
   // for (size_t i = 0; i < kCount * kCount; i++) std::cout << in[i] << " ";
   // std::cout << std::endl;
@@ -205,7 +205,7 @@ TEST(vladimirova_j_sum_matrix_column, test_sum_column_500x1) {
   constexpr size_t kCountR = 500;
   constexpr size_t kCountC = 1;
   // Create data
-  std::vector<int> in = vladimirova_j_sum_matrix_column::CreateRandomVector(kCountC * kCountR, 500);
+  std::vector<int> in = CreateRandomVector(kCountC * kCountR, 500);
   std::vector<int> out(kCountC, 0);
   std::vector<int> ans(kCountC, 0);
   for (size_t i = 0; i < kCountR; i++) {
@@ -237,7 +237,7 @@ TEST(vladimirova_j_sum_matrix_column, test_sum_column_arif_pr_100x100_1) {
   // Create data
   std::vector<int> in = std::vector<int>(kCount * kCount);
   for (size_t i = 0; i < kCount * kCount; i++) {
-    in[i] = i;
+    in[i] = static_cast<int>(i);
   }
   std::vector<int> out(kCount);
   // for (size_t i = 0; i < kCount * kCount; i++) std::cout << in[i] << " ";
@@ -245,7 +245,7 @@ TEST(vladimirova_j_sum_matrix_column, test_sum_column_arif_pr_100x100_1) {
   std::vector<int> ans = std::vector<int>(kCount, 0);
   size_t tmp = kCount * (kCount - 1);
   for (size_t i = 0; i < kCount; i++) {
-    ans[i] = ((i * 2 + tmp) * kCount) / 2;
+    ans[i] = static_cast<int>((((i * 2) + tmp) * kCount) / 2);
   }
 
   // Create task_data
@@ -271,7 +271,7 @@ TEST(vladimirova_j_sum_matrix_column, test_sum_column_arif_pr_100x50_1) {
   // Create data
   std::vector<int> in = std::vector<int>(kCountR * kCountC);
   for (size_t i = 0; i < kCountR * kCountC; i++) {
-    in[i] = i;
+    in[i] = static_cast<int>(i);
   }
   std::vector<int> out(kCountC);
   // for (size_t i = 0; i < kCount * kCount; i++) std::cout << in[i] << " ";
@@ -279,7 +279,7 @@ TEST(vladimirova_j_sum_matrix_column, test_sum_column_arif_pr_100x50_1) {
   std::vector<int> ans = std::vector<int>(kCountC, 0);
   size_t tmp = kCountC * (kCountR - 1);
   for (size_t i = 0; i < kCountC; i++) {
-    ans[i] = ((i * 2 + tmp) * kCountR) / 2;
+    ans[i] = static_cast<int>((((i * 2) + tmp) * kCountR) / 2);
   }  // sum_pr = ((a1 + an)/2)*n
 
   // Create task_data
@@ -305,7 +305,7 @@ TEST(vladimirova_j_sum_matrix_column, test_sum_column_arif_pr_50x100_1) {
   // Create data
   std::vector<int> in = std::vector<int>(kCountR * kCountC);
   for (size_t i = 0; i < kCountR * kCountC; i++) {
-    in[i] = i;
+    in[i] = static_cast<int>(i);
   }
   std::vector<int> out(kCountC);
   // for (size_t i = 0; i < kCount * kCount; i++) std::cout << in[i] << " ";
@@ -313,7 +313,7 @@ TEST(vladimirova_j_sum_matrix_column, test_sum_column_arif_pr_50x100_1) {
   std::vector<int> ans = std::vector<int>(kCountC, 0);
   size_t tmp = kCountC * (kCountR - 1);
   for (size_t i = 0; i < kCountC; i++) {
-    ans[i] = ((i * 2 + tmp) * kCountR) / 2;
+    ans[i] = static_cast<int>((((i * 2) + tmp) * kCountR) / 2);
   }  // sum_pr = ((a1 + an)/2)*n
 
   // Create task_data
@@ -340,7 +340,7 @@ TEST(vladimirova_j_sum_matrix_column, test_sum_column_geom_pr2_4x5_1) {
   std::vector<int> in = std::vector<int>(kCountR * kCountC);
   in[0] = 1;
   for (size_t i = 1; i < kCountR * kCountC; i++) {
-    in[i] = in[i - 1] * q;
+    in[i] = static_cast<int>(in[i - 1] * q);
   }
   std::vector<int> out(kCountC);
   // for (size_t i = 0; i < kCountC * kCountR; i++) std::cout << in[i] << " ";
@@ -349,7 +349,7 @@ TEST(vladimirova_j_sum_matrix_column, test_sum_column_geom_pr2_4x5_1) {
   size_t tmp = kCountC * (kCountR - 1);
   q = in[kCountC] / in[0];
   for (size_t i = 0; i < kCountC; i++) {
-    ans[i] = ((in[i + tmp] * q) - in[i]) / (q - 1);
+    ans[i] = static_cast<int>(((in[i + tmp] * q) - in[i]) / (q - 1));
   }  // sum_pr = (b1q^n - b1)/q-1 => (bn - b1)/ q-1;
   // Create task_data
   auto task_data_seq = std::make_shared<ppc::core::TaskData>();
@@ -375,7 +375,7 @@ TEST(vladimirova_j_sum_matrix_column, test_sum_column_geom_pr5_3x3_1) {
   std::vector<int> in = std::vector<int>(kCountR * kCountC);
   in[0] = 1;
   for (size_t i = 1; i < kCountR * kCountC; i++) {
-    in[i] = in[i - 1] * q;
+    in[i] = static_cast<int>(in[i - 1] * q);
   }
   std::vector<int> out(kCountC);
   // for (size_t i = 0; i < kCountC * kCountR; i++) std::cout << in[i] << " ";
@@ -384,7 +384,7 @@ TEST(vladimirova_j_sum_matrix_column, test_sum_column_geom_pr5_3x3_1) {
   size_t tmp = kCountC * (kCountR - 1);
   q = in[kCountC] / in[0];
   for (size_t i = 0; i < kCountC; i++) {
-    ans[i] = ((in[i + tmp] * q) - in[i]) / (q - 1);
+    ans[i] = static_cast<int>(((in[i + tmp] * q) - in[i]) / (q - 1));
   }  // sum_pr = (b1q^n - b1)/q-1 => (bn - b1)/ q-1;
   // Create task_data
   auto task_data_seq = std::make_shared<ppc::core::TaskData>();
