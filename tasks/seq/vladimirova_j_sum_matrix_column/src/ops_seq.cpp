@@ -2,12 +2,11 @@
 
 #include <cmath>
 #include <cstddef>
-#include <iostream>
 #include <vector>
 
 bool vladimirova_j_sum_matrix_column::TestTaskSequential::PreProcessingImpl() {
   auto *tmp_p = reinterpret_cast<int *>(task_data->inputs[0]);
-  input_ = std::vector<int>(tmp_p, tmp_p + m_col_ * m_row_);
+  input_ = std::vector<int>(tmp_p, tmp_p + (m_col_ * m_row_));
   size_t output_size = m_col_;
   output_ = std::vector<int>(output_size, 0);
   return true;
@@ -33,7 +32,7 @@ bool vladimirova_j_sum_matrix_column::TestTaskSequential::RunImpl() {
 
   for (size_t i = 0; i < m_col_; i++) {
     for (size_t j = 0; j < m_row_; j++) {
-      output_[i] += input_[i + j * m_col_];
+      output_[i] += input_[j * m_col_ + i];
     }
   }
 

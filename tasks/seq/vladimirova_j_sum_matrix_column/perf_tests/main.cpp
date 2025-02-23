@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include <chrono>
+/*
 #include <cstddef>
 #include <cstdint>
 #include <memory>
@@ -9,7 +10,6 @@
 #include "core/perf/include/perf.hpp"
 #include "core/task/include/task.hpp"
 #include "seq/vladimirova_j_sum_matrix_column/include/ops_seq.hpp"
-/*
 
 TEST(vladimirova_j_sum_matrix_column, test_pipeline_run) {
   constexpr int kCount = 500;
