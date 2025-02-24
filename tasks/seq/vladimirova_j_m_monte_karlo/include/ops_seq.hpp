@@ -8,7 +8,7 @@
 
 namespace vladimirova_j_m_monte_karlo {
 
-struct boundaries_integral {
+struct BoundariesIntegral {
   double min;
   double max;
 };
@@ -23,10 +23,10 @@ class TestTaskSequential : public ppc::core::Task {
 
  private:
   std::vector<double> input_, output_;
-  bool (*func)(std::vector<double>, size_t);
-  std::vector<boundaries_integral> var_integr_;
+  bool (*func_)(std::vector<double>, size_t);
+  std::vector<BoundariesIntegral> var_integr_;
   size_t var_size_{};
-  size_t accuracy;
+  size_t accuracy_;
 };
 
 }  // namespace vladimirova_j_m_monte_karlo
