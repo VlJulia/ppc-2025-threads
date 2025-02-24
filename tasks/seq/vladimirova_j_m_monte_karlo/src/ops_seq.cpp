@@ -3,7 +3,7 @@
 
 #include <cmath>
 #include <cstddef>
-// #include <iostream>
+#include <iostream>
 #include <random>
 #include <vector>
 
@@ -22,8 +22,8 @@ double CreateRandomVal(double min_v, double max_v) {
 
 bool vladimirova_j_m_monte_karlo::TestTaskSequential::PreProcessingImpl() {
   // Init value for input and output
-  func_ = reinterpret_cast<bool (*)(std::vector<double>, size_t)>(task_data->inputs[2]);
-  auto* in_ptr = reinterpret_cast<double*>(task_data->inputs[1]);
+  func_ = reinterpret_cast<bool (*)(std::vector<double>, size_t)>(task_data->inputs[1]);
+  auto* in_ptr = reinterpret_cast<double*>(task_data->inputs[0]);
   std::vector<double> var_vect = std::vector<double>(in_ptr, in_ptr + var_size_);
   var_size_ /= 2;
   var_integr_ = std::vector<vladimirova_j_m_monte_karlo::BoundariesIntegral>(var_size_);
@@ -31,7 +31,7 @@ bool vladimirova_j_m_monte_karlo::TestTaskSequential::PreProcessingImpl() {
     var_integr_[i].min = var_vect[i * 2];
     var_integr_[i].max = var_vect[(i * 2) + 1];
   }
-  accuracy_ = reinterpret_cast<size_t>(task_data->inputs[3]);
+  accuracy_ = reinterpret_cast<size_t>(task_data->inputs[2]);
   return true;
 }
 
@@ -39,18 +39,20 @@ bool vladimirova_j_m_monte_karlo::TestTaskSequential::ValidationImpl() {
   // Check equality of counts elements
   // ��� ����� ����������,     ������ �����������,   ������ �� �������,    ��������
 
-  var_size_ = reinterpret_cast<size_t>(task_data->inputs[0]);
+  var_size_ = task_data->inputs_count[0];
+
   if ((var_size_ == 0) || (var_size_ % 2 != 0) || (var_size_ < 3)) {
     return false;
   }  // has variables
-  auto* in_ptr = reinterpret_cast<double*>(task_data->inputs[1]);
+  auto* in_ptr = reinterpret_cast<double*>(task_data->inputs[0]);
   std::vector<double> var_vect = std::vector<double>(in_ptr, in_ptr + var_size_);
   for (size_t i = 0; i < var_size_; i += 2) {
     if (var_vect[i] >= var_vect[i + 1]) {
       return false;
     }  // x_min<x_max
   }
-  return (task_data->inputs[2] != nullptr) && (reinterpret_cast<size_t>(task_data->inputs[3]) > 0);  // has funtion
+  return (task_data->inputs[1] != nullptr) && (reinterpret_cast<size_t>(task_data->inputs[2]) > 0);  // has funtion
+
   return true;
 }
 

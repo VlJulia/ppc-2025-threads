@@ -26,12 +26,11 @@ TEST(vladimirova_j_m_monte_karlo, test_pipeline_run) {
 
   // Create task_data
   auto task_data_seq = std::make_shared<ppc::core::TaskData>();
-  size_t bar = val_b.size();
-  task_data_seq->inputs.emplace_back(reinterpret_cast<uint8_t*>(bar));
+
   task_data_seq->inputs.emplace_back(reinterpret_cast<uint8_t*>(val_b.data()));
   task_data_seq->inputs.emplace_back(reinterpret_cast<uint8_t*>(PiVal314));
   task_data_seq->inputs.emplace_back(reinterpret_cast<uint8_t*>(200000));
-  task_data_seq->inputs_count.emplace_back(4);
+  task_data_seq->inputs_count.emplace_back(val_b.size());
   task_data_seq->outputs.emplace_back(reinterpret_cast<uint8_t*>(out.data()));
   task_data_seq->outputs_count.emplace_back(out.size());
 
@@ -65,12 +64,11 @@ TEST(vladimirova_j_m_monte_karlo, test_task_run) {
 
   // Create task_data
   auto task_data_seq = std::make_shared<ppc::core::TaskData>();
-  size_t bar = val_b.size();
-  task_data_seq->inputs.emplace_back(reinterpret_cast<uint8_t*>(bar));
+
   task_data_seq->inputs.emplace_back(reinterpret_cast<uint8_t*>(val_b.data()));
   task_data_seq->inputs.emplace_back(reinterpret_cast<uint8_t*>(PiVal314));
   task_data_seq->inputs.emplace_back(reinterpret_cast<uint8_t*>(200000));
-  task_data_seq->inputs_count.emplace_back(4);
+  task_data_seq->inputs_count.emplace_back(val_b.size());
   task_data_seq->outputs.emplace_back(reinterpret_cast<uint8_t*>(out.data()));
   task_data_seq->outputs_count.emplace_back(out.size());
 
