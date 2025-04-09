@@ -59,7 +59,7 @@ bool vladimirova_j_m_monte_karlo_tbb::TestTaskTBB::ValidationImpl() {
 bool vladimirova_j_m_monte_karlo_tbb::TestTaskTBB::RunImpl() {
   // Multiply matrices
 
-  successful_point = 0;
+  size_t successful_point = 0;
   size_t total_successful_points = tbb::parallel_reduce(
       tbb::blocked_range<size_t>(0, accuracy_), 0,
       [&](const tbb::blocked_range<size_t>& r, size_t local_successful_point) {
@@ -81,7 +81,7 @@ bool vladimirova_j_m_monte_karlo_tbb::TestTaskTBB::RunImpl() {
   }
   s *= ((double)(successful_point) / (double)accuracy_);
   output_.push_back(s);
-  std::cout << output_[0] << std::endl;
+  std::cout << output_[0];
   return true;
 }
 

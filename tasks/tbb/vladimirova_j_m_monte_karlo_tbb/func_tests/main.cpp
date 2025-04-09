@@ -4,6 +4,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <iostream>
 #include <memory>
 #include <vector>
 
@@ -367,7 +368,7 @@ TEST(vladimirova_j_m_monte_karlo_tbb, test_BigParallelogram100100100) {
   test_task_tbb.PreProcessing();
   test_task_tbb.Run();
   test_task_tbb.PostProcessing();
-  std::cout << out[0] << std::endl;
+  std::cout << out[0];
   ASSERT_TRUE(((100 * 100 * 100) - (int)out[0]) == 0);
 }
 
