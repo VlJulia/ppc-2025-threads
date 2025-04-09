@@ -1,15 +1,18 @@
 
 #include "tbb/vladimirova_j_m_monte_karlo_tbb/include/ops_tbb.hpp"
 
+#include <oneapi/tbb/blocked_range.h>
+#include <oneapi/tbb/parallel_for.h>
+#include <oneapi/tbb/parallel_reduce.h>
+#include <tbb/tbb.h>
+
+#include <algorithm>
 #include <cmath>
 #include <cstddef>
+#include <functional>
 #include <iostream>
 #include <random>
 #include <vector>
-#include <tbb/parallel_reduce.h>
-#include <tbb/blocked_range.h>
-
-#include <functional>
 
 namespace {
 
