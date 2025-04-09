@@ -2,11 +2,9 @@
 #include "tbb/vladimirova_j_m_monte_karlo_tbb/include/ops_tbb.hpp"
 
 #include <oneapi/tbb/blocked_range.h>
-#include <oneapi/tbb/parallel_for.h>
 #include <oneapi/tbb/parallel_reduce.h>
 #include <tbb/tbb.h>
 
-#include <algorithm>
 #include <cmath>
 #include <cstddef>
 #include <functional>
@@ -73,7 +71,7 @@ bool vladimirova_j_m_monte_karlo_tbb::TestTaskTBB::RunImpl() {
         }
         return local_successful_point;
       },
-      std::plus<size_t>());
+      std::plus<>());
 
   successful_point = total_successful_points;
   double s = 1;
