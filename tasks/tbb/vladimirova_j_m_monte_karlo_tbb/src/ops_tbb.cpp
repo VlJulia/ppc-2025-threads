@@ -1,17 +1,15 @@
 
 #include "tbb/vladimirova_j_m_monte_karlo_tbb/include/ops_tbb.hpp"
 
-#include <oneapi/tbb.h>
-
 #include <cmath>
-#include <core/util/include/util.hpp>
 #include <cstddef>
 #include <iostream>
 #include <random>
 #include <vector>
+#include <tbb/parallel_reduce.h>
+#include <tbb/blocked_range.h>
 
-#include "oneapi/tbb/task_arena.h"
-#include "oneapi/tbb/task_group.h"
+#include <functional>
 
 namespace {
 
