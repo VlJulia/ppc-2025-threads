@@ -6,16 +6,16 @@
 
 #include "core/task/include/task.hpp"
 
-namespace vladimirova_j_m_monte_karlo_seq {
+namespace vladimirova_j_m_monte_karlo_stl {
 
 struct BoundariesIntegral {
   double min;
   double max;
 };
 
-class TestTaskSequential : public ppc::core::Task {
+class TestTaskStl : public ppc::core::Task {
  public:
-  explicit TestTaskSequential(ppc::core::TaskDataPtr task_data) : Task(std::move(task_data)) {}
+  explicit TestTaskStl(ppc::core::TaskDataPtr task_data) : Task(std::move(task_data)) {}
   bool PreProcessingImpl() override;
   bool ValidationImpl() override;
   bool RunImpl() override;
@@ -29,4 +29,4 @@ class TestTaskSequential : public ppc::core::Task {
   size_t accuracy_;
 };
 
-}  // namespace vladimirova_j_m_monte_karlo_seq
+}  // namespace vladimirova_j_m_monte_karlo_stl
