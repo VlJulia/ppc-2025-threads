@@ -1,13 +1,12 @@
 
 #include "stl/vladimirova_j_m_monte_karlo_stl/include/ops_stl.hpp"
 
+#include <algorithm>
 #include <cmath>
 #include <cstddef>
 #include <execution>
-#include <iostream>
 #include <numeric>
 #include <random>
-#include <utility>
 #include <vector>
 
 namespace {
@@ -66,7 +65,7 @@ bool vladimirova_j_m_monte_karlo_stl::TestTaskStl::RunImpl() {
                   }
                   local_successful_point = static_cast<size_t>(func_(local_random_val, var_size_));
                 });
-  successful_point = std::accumulate(successful_points.begin(), successful_points.end(), 0);
+  successful_point = (size_t)std::accumulate(successful_points.begin(), successful_points.end(), 0);
 
   double s = 1;
   for (size_t i = 0; i < var_size_; i++) {
