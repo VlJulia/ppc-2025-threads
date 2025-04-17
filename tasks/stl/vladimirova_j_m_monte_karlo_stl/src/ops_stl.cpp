@@ -1,11 +1,8 @@
 
 #include "stl/vladimirova_j_m_monte_karlo_stl/include/ops_stl.hpp"
 
-#include <algorithm>
 #include <cmath>
 #include <cstddef>
-#include <execution>
-#include <numeric>
 #include <random>
 #include <thread>
 #include <vector>
@@ -60,7 +57,7 @@ bool vladimirova_j_m_monte_karlo_stl::TestTaskStl::ValidationImpl() {
 bool vladimirova_j_m_monte_karlo_stl::TestTaskStl::RunImpl() {
   size_t successful_point = 0;
 
-  int count_t = ppc::util::GetPPCNumThreads();
+  size_t count_t = ppc::util::GetPPCNumThreads();
   std::vector<std::thread> threads(count_t);
   std::vector<size_t> local_res(count_t, 0.0);
 
