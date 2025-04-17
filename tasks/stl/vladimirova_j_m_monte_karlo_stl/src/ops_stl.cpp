@@ -7,7 +7,10 @@
 #include <execution>
 #include <numeric>
 #include <random>
+#include <thread>
 #include <vector>
+
+#include "core/util/include/util.hpp"
 
 namespace {
 
@@ -56,23 +59,43 @@ bool vladimirova_j_m_monte_karlo_stl::TestTaskStl::ValidationImpl() {
 
 bool vladimirova_j_m_monte_karlo_stl::TestTaskStl::RunImpl() {
   size_t successful_point = 0;
-  std::vector<size_t> successful_points(accuracy_, 0);
-  std::for_each(std::execution::par, successful_points.begin(), successful_points.end(),
-                [&](size_t& local_successful_point) {
-                  std::vector<double> local_random_val(var_size_);
-                  for (size_t j = 0; j < var_size_; j++) {
-                    local_random_val[j] = CreateRandomVal(var_integr_[j].min, var_integr_[j].max);
-                  }
-                  local_successful_point = static_cast<size_t>(func_(local_random_val, var_size_));
-                });
-  successful_point = (size_t)std::accumulate(successful_points.begin(), successful_points.end(), 0);
 
+  int count_t = ppc::util::GetPPCNumThreads();
+  std::vector<std::thread> threads(count_t);
+  std::vector<size_t> local_res(count_t, 0.0);
+
+  size_t dl = accuracy_ / local_res.size();
+
+  for (size_t i = 1; i < count_t; i++) {
+    local_res[i] = dl;
+  }
+  local_res[0] = dl + (accuracy_ % local_res.size());
+
+  for (int t = 0; t < count_t; t++) {
+    threads[t] = std::thread([&, t]() {
+      std::vector<double> random_val = std::vector<double>(var_size_);
+      size_t n = local_res[t];
+      local_res[t] = 0;
+      for (size_t i = 0; i < n; i++) {
+        for (size_t j = 0; j < var_size_; j++) {
+          random_val[j] = CreateRandomVal(var_integr_[j].min, var_integr_[j].max);
+        }
+        local_res[t] += (int)(func_(random_val, var_size_));
+      }
+    });
+  }
+
+  for (size_t i = 0; i < count_t; i++) {
+    threads[i].join();
+    successful_point += local_res[i];
+  }
   double s = 1;
   for (size_t i = 0; i < var_size_; i++) {
     s *= (var_integr_[i].max - var_integr_[i].min);
   }
-  s *= static_cast<double>(successful_point) / static_cast<double>(accuracy_);
+  s *= ((double)(successful_point) / (double)accuracy_);
   output_.push_back(s);
+
   return true;
 }
 
