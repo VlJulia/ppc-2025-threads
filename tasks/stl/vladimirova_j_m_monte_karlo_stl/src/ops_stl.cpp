@@ -68,7 +68,7 @@ bool vladimirova_j_m_monte_karlo_stl::TestTaskStl::RunImpl() {
   }
   local_res[0] = dl + (accuracy_ % local_res.size());
 
-  for (int t = 0; t < count_t; t++) {
+  for (size_t t = 0; t < count_t; t++) {
     threads[t] = std::thread([&, t]() {
       std::vector<double> random_val = std::vector<double>(var_size_);
       size_t n = local_res[t];
